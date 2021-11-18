@@ -55,7 +55,7 @@ export default function Header() {
           <h1 className='sign-in-title'>Sign In</h1>
           <form className='sign-in-base' onSubmit={handleSignIn} method='POST'>
             <input
-              className='sign-in-input'
+              className= {emailError ? 'sign-in-input-error':'sign-in-input'}
               placeholder='Email'
               value={emailAddress}
               onChange={({ target }) => {
@@ -66,7 +66,7 @@ export default function Header() {
             {emailError && <p className="sign-in-email-error">Field Empty</p>}
             <input
               
-              className='sign-in-input'
+              className= {passwordError ? 'sign-in-input-error' : 'sign-in-input'}
               type='password'
               autoComplete='off'
               placeholder='Password'
@@ -80,6 +80,16 @@ export default function Header() {
             <button className='sign-in-button' disabled={false} type='submit'>
               Sign In
             </button>
+            <div class="remember-flex">
+              <div class="rememberMe">
+                <input type="checkbox" name="rememberMe" id="rememberMe" class="rememberMe" />
+                <label for="rememberMe"><span class="login-remember-me-label-text">Remember me</span></label>
+              </div>
+
+              <div class="help">
+                <a class="need-help" href="#">Need help?</a>
+              </div>
+            </div>
           </form>
           <p className='sign-in-text'>
             New to Netflix?{' '}
