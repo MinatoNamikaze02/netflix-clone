@@ -16,7 +16,7 @@ export default function Body() {
   const handleFormSubmit = async (event) => {
     event.preventDefault()
     if (!email) setEmailError(true)
-    if (!password) setEmailError(true)
+    if (!password) setPasswordError(true)
     if (!confirmPass)setConfirmPassError(true)
       
     if (password !== confirmPass) {
@@ -31,7 +31,7 @@ export default function Body() {
       setPassword('')
       setConfirmPass('')
     } catch (error) {
-      toast.error(error.response.data)
+     
     }
   }
 
@@ -109,7 +109,6 @@ export default function Body() {
             </div>
             <div>
               <button
-                disabled={!email || !password || !confirmPass}
                 className='signup-submit-button'
                 type='submit'
               >
