@@ -23,6 +23,10 @@ ReactDOM.render(
             <Main />
             <GlobalStyles />
           </Route>
+          <Route exact path='/main/profiles'>
+            <Main />
+            <GlobalStyles />
+          </Route>
         </Switch>
       </>
       <Switch>

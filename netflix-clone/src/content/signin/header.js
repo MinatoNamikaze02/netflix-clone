@@ -13,6 +13,7 @@ export default function Header() {
   if(location.state){
     email = location.state.email
     console.log(email)
+    console.log(typeof(email))
   }else{
     email = ''
   }
@@ -27,8 +28,9 @@ export default function Header() {
   const handleSignIn = async (event) => {
     event.preventDefault()
     if (!emailAddress) setEmailError(true)
-    if(!passwordError) setPasswordError(true)
+    if(!password) setPasswordError(true)
     try {
+      console.log(emailAddress)
       const { data } = await axios.post(`http://localhost:3001/api/login`, {
         emailAddress,
         password,
@@ -38,10 +40,10 @@ export default function Header() {
         token: data.token,
       })
       window.localStorage.setItem('auth', JSON.stringify(data))
-      history.push('/main')
+      history.push('/main/profiles')
     } catch (error) {
       console.log(error)
-      toast.error(error)
+      alert('User does not exist!')
     }
   }
 
@@ -68,7 +70,6 @@ export default function Header() {
               
               className= {passwordError ? 'sign-in-input-error' : 'sign-in-input'}
               type='password'
-              autoComplete='off'
               placeholder='Password'
               value={password}
               onChange={({ target }) => {
@@ -80,14 +81,14 @@ export default function Header() {
             <button className='sign-in-button' disabled={false} type='submit'>
               Sign In
             </button>
-            <div class="remember-flex">
-              <div class="rememberMe">
-                <input type="checkbox" name="rememberMe" id="rememberMe" class="rememberMe" />
-                <label for="rememberMe"><span class="login-remember-me-label-text">Remember me</span></label>
+            <div className="remember-flex">
+              <div className="rememberMe">
+                <input type="checkbox" name="rememberMe" id="rememberMe" className="rememberMe" />
+                <label><span className="login-remember-me-label-text">Remember me</span></label>
               </div>
 
-              <div class="help">
-                <a class="need-help" href="#">Need help?</a>
+              <div className="help">
+                <a className="need-help" href="#">Need help?</a>
               </div>
             </div>
           </form>

@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema(({
     minlength: 6,
     maxlength: 64,
   },
+  photoURL:{
+    type: Number,
+    required: true,
+    maxlength: 1
+  }
 }),
 { timestamps: true }
 )

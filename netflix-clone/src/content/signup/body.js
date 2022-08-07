@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import { toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import '../assets/styles.css'
 require('dotenv').config()
 
@@ -12,6 +13,8 @@ export default function Body() {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [confirmPassError, setConfirmPassError] = useState(false)
+
+  const history = useHistory()
 
   const handleFormSubmit = async (event) => {
     event.preventDefault()
@@ -26,12 +29,14 @@ export default function Body() {
       const { data } = await axios.post(`http://localhost:3001/api/register`, {
         email,
         password,
+        photoURL: Math.floor(Math.random() * 5) + 1,
       })
       setEmail('')
       setPassword('')
       setConfirmPass('')
+      history.push('/signin')
     } catch (error) {
-     
+      toast.error("Email ID already exists.")
     }
   }
 
@@ -50,6 +55,16 @@ export default function Body() {
 
   return (
     <>
+      <ToastContainer
+        position='top-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <form onSubmit={handleFormSubmit} className='signup-form'>
         <div className='signup-form-container'>
           <div className='signup-header-container'>
@@ -81,7 +96,7 @@ export default function Body() {
                 passwordError ? 'sign-up-input-error' : 'sign-up-input'
               }
               placeholder='Enter your password'
-              type='password'
+              //type='password'
             />
             {passwordError ? (
               <p className='sign-up-error'>field missing</p>
@@ -93,7 +108,7 @@ export default function Body() {
                 confirmPassError ? 'sign-up-input-error' : 'sign-up-input'
               }
               placeholder='Re-enter your password'
-              type='password'
+              //type='password'
             />
             {confirmPassError ? (
               confirmPass !== password ? (
